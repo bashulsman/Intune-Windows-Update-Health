@@ -11,7 +11,7 @@ A detection and remediation script pair for **Microsoft Intune Remediations** th
 
 A device that quietly stops patching often looks fine in Intune: it is compliant, checks in daily and still gets Defender and Store updates. Meanwhile it can be months behind on cumulative updates and never get a feature update.
 
-A real example that led to these scripts: an Intune update ring with **Automatic update behavior = Reset to default** sends `AllowAutoUpdate=6`, which means Intune enforces nothing and Windows falls back to local settings. On one device, an old local `AUOptions=1` (automatic updates off) was still present. The Update Orchestrator therefore never scanned for Windows updates, and the device sat on the same build for nine months, while other devices with the same ring were fine.
+A real example that led to these scripts: an Intune update ring with **Automatic update behavior = Reset to default** sends `AllowAutoUpdate=6`, which means Intune enforces nothing and Windows falls back to local settings. On several devices, an old local `AUOptions=1` (automatic updates off) was still present. The Update Orchestrator on those devices therefore never scanned for Windows updates, and they sat on the same build for months, while other devices with the same ring were fine.
 
 ## What it checks
 
@@ -126,7 +126,7 @@ The end-of-service table in `Get-OSInfo` must be updated when a new Windows vers
 
 ## Notes
 
-- Tested on Windows 11 24H2 and 25H2 (Enterprise).
+- Tested on multiple devices running Windows 11 24H2 and 25H2 (Enterprise).
 - The Windows Update history fallback matches English and Dutch update titles; add patterns for other languages if needed.
 - On domain-joined devices a GPO may set removed values again. The remediation output then shows a warning.
 - Test on a small pilot group before assigning broadly.
